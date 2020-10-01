@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { HIGH } from '../../enums/priority-enum';
 
+import style from './list-todo.module.css';
+
 const ListTodoItem = (props) => {
     const {id, name, desc, priority, isDone, onFinish, onDelete} = props;
  
     return (
-        <li>
-            {isDone && "Fini !"}
-            <p>{name} {priority === HIGH && <span>(Urgent)</span>}</p>
-            <p>{desc}</p>
-            <button onClick={() => onFinish(id)} disabled={isDone}>Terminer</button>
-            <button onClick={() => onDelete(id)}>Supprimer</button>
+        <li className={`${style.task} ${isDone && style.isDone}`}>
+            <div className={style.taskInfo}>
+                <p>{name} {priority === HIGH && <span className={style.high}>(Urgent)</span>}</p>
+                <p>{desc}</p>
+            </div>
+            <div className={style.taskCommand}>
+                <button onClick={() => onFinish(id)} disabled={isDone}>Terminer</button>
+                <button onClick={() => onDelete(id)}>Supprimer</button>
+            </div>
         </li>
     );
 }

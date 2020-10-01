@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListTodoItem from './list-todo-item';
 
+import style from './list-todo.module.css';
+
 const ListTodo = ({taskList, onTaskFinish, onTaskDelete}) => {
 
     const itemsJSX = taskList.map(
@@ -11,7 +13,7 @@ const ListTodo = ({taskList, onTaskFinish, onTaskDelete}) => {
     );
 
     return (
-        <ul>{itemsJSX}</ul>
+        <ul className={style.taskList}>{itemsJSX}</ul>
     );
 }
 

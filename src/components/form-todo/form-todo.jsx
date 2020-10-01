@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {LOW, NORMAL, HIGH} from './../../enums/priority-enum';
 
+import style from './form-todo.module.css';
+
 class FormTodo extends Component {
 
     constructor(props) {
@@ -10,7 +12,8 @@ class FormTodo extends Component {
         this.state = {
             name : '',
             desc: '',
-            priority: NORMAL
+            priority: NORMAL,
+            nameError: false
         }
     }
 
@@ -22,37 +25,48 @@ class FormTodo extends Component {
         });
     }
 
+    activeErrorName = () => {
+        // Active le background d'erreur en quittant l'input name
+        this.setState((state) => ({
+            nameError: state.name === ''
+        }));
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.props.onNewTask({
-            name: this.state.name,
-            desc: this.state.desc,
-            priority: this.state.priority
-        })
+        if(this.state.name !== '') {
+            // Test pour bloqué l'envois
 
-        this.setState({
-            name : '',
-            desc: '',
-            priority: NORMAL
-        })
+            this.props.onNewTask({
+                name: this.state.name,
+                desc: this.state.desc,
+                priority: this.state.priority
+            })
+    
+            this.setState({
+                name : '',
+                desc: '',
+                priority: NORMAL
+            })
+        }
     }
 
     render() {
-        const {name, desc, priority} = this.state;
+        const {name, desc, priority, nameError} = this.state;
 
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className={style.form}>
                 <label>
-                    Nom:
-                    <input type="text" name="name" value={name} onChange={this.handleInput}/>
+                    Nom: *
+                    <input type="text" name="name" value={name} required
+                            onChange={this.handleInput} onBlur={this.activeErrorName}
+                            className={nameError && name === '' ? style.requiredName : ''}/>
                 </label>
-                <br/>
                 <label>
                     Description:
                     <input type="text" name="desc" value={desc} onChange={this.handleInput}/>
                 </label>
-                <br/>
                 <label>
                     Priorité:
                     <select name="priority" value={priority} onChange={this.handleInput}>
@@ -62,7 +76,7 @@ class FormTodo extends Component {
                     </select>
                 </label>
                 <div>
-                    <input type="submit" value="Ajouter"/>
+                    <input className={style.addBtn} type="submit" value="Ajouter" disabled={name === ''}/>
                 </div>
             </form>
         );

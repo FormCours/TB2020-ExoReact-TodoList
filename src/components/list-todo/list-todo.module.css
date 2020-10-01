@@ -1,0 +1,45 @@
+.taskList {
+    list-style: none;
+    padding: 0px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.isDone {
+    background: repeating-linear-gradient(
+        -45deg,
+        #AAA,
+        #AAA 10px,
+        #DDD 10px,
+        #DDD 20px
+    );
+}
+
+.taskInfo, .taskCommand {
+    display: flex;
+    flex-direction: column;
+}
+
+.taskInfo p {
+    margin: 0px;
+    text-transform: lowercase;
+}
+
+.taskInfo p::first-letter {
+    text-transform: uppercase;
+}
+
+.high {
+    color: crimson;
+    font-weight: bold;
+    text-transform: capitalize;
+}

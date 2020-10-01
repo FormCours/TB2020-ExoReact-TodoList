@@ -10,7 +10,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      taskList: []
+      taskList: [
+        {id: "egoOG99TM", name: "test", desc: "", priority: "high", isDone: true},
+        {id: "qsdqdqcqc", name: "test", desc: "Hello World", priority: "normal", isDone: false},
+        {id: "qsdqs", name: "test", desc: "", priority: "normal", isDone: false}
+      ]
     }
   }
 
